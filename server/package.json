@@ -1,0 +1,40 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Server side to manage news",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write \"src/**/*.ts\"",
+    "start:dev": "export NODE_ENV=development && nodemon ./server/index.js",
+    "start": "cross-env NODE_ENV=development && node ./server/index.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "debug": "node --nolazy --debug-brk=5858 index.js"
+ 
+  },
+  "author": "Javier Segarra",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.6",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.9.3",
+    "concurrently": "^6.2.1",
+    "cross-env": "^7.0.3",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.32.0",
+    "jest": "^27.2.0",
+    "nodemon": "^2.0.12",
+    "prettier": "^2.4.1",
+    "supertest": "^6.1.6",
+    "tslint": "^6.1.3"
+  }
+}
