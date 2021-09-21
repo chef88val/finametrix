@@ -1,0 +1,35 @@
+
+<h6 *ngIf="false">
+  La tabla se ordena según:
+  <p *ngFor="let col of currentSortValues | keyvalue ">
+    {{col.key| titlecase}} <i>({{col.value}})</i>
+  </p>
+</h6>
+<pre>{{currentSortValues | json}}</pre>
+<table class="table">
+  <thead>
+    <tr>
+      <th
+      (click)="orderBy(c.tag)"
+        *ngFor="let c of tableHeaders"
+        scope="col"
+      >
+        {{c.text}}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="tableData.length < 1">
+      <td colspan="6" class="table-active text-center">No data</td>
+  </tr>
+
+      <tr *ngFor="let item of tableData; let i=index">
+          <th>{{i+1}}</th>
+          <td>{{item.title}}</td>
+          <td>{{item.description}}</td>
+          <td>{{item.content}}</td>
+          <td>{{item.author}}</td>
+          <td>{{item.archiveDate}}</td>
+      </tr>
+  </tbody>
+</table>
