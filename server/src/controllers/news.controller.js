@@ -23,12 +23,7 @@ const status = {
 
 
 newsCtrl.getNews = async (req, res, next) => {
-  if (!req.body.args) {
-    res.status(500).send(errors.args.no_exist);
-    return next()
-  }
-
-  const news = await News.find(req.body.args);
+  const news = await News.find(req.query);
 
   if (!news) {
     res.status(500).send(errors.no_results);
@@ -38,18 +33,18 @@ newsCtrl.getNews = async (req, res, next) => {
 };
 
 newsCtrl.createNews = async (req, res) => {
-  if(!req.body.item){
+  if(!req.body){
     res.status(500).send(errors.item.no_exist);
     return next()
   }
-  const news = new News(req.body.item);
+  const news = new News(req.body[0]);
 
   if (!news) {
     res.status(500).send(errors.no_results);
     return next()
   }
   await news.save();
-  res.json({ status: `New ${status.saved}` });
+  res.status(200).send({ status: 200 });
 };
 
 newsCtrl.editNew = async (req, res) => {
