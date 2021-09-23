@@ -8,6 +8,7 @@ import { LocalizationService } from './internationalization/localization.service
 })
 export class AppComponent implements OnInit {
   language: string = 'es-ES';
+  title: string = 'Javier Segarra';
 
   constructor(private localizationService: LocalizationService) {}
   ngOnInit(): void {

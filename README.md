@@ -1,4 +1,19 @@
-# finametrix
-Prueba finametrix
+# Prueba técnica para Allfunds Digital
 
-Servidor para proporcionar los registros guardados o archivados 
+*Propuesta de prueba técnica por Allfunds Digital*
+
+> Intalación:
+
+```
+npm install
+```
+
+> Ejecución
+```
+
+npm run start:dev 
+```
+
+El puerto de escucha de este servicio es el 3000**
+
+
