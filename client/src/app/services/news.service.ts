@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { News } from "../news/news.interface";
+import { TagKeys } from "../news/shared/constants";
 import { ApiService, URL } from "../shared/constants";
 
 @Injectable({
@@ -15,15 +16,15 @@ export class NewsService implements ApiService {
    * @returns status
    */
   status(): Promise<boolean> {
-    return this.http.get<boolean>(this.handleURL("status")).toPromise();
+    return this.http.get<boolean>(this.handleURL(TagKeys.status)).toPromise();
   }
   /**
    * Gets data
    * @returns data
    */
-  getData(psarams: any = {}): Promise<News> {
-    const params = new HttpParams().appendAll(psarams);
-    return this.http.get<News>(this.handleURL("news"), {params}).toPromise();
+  getData(_params: any = {}): Promise<News> {
+    const params = new HttpParams().appendAll(_params);
+    return this.http.get<News>(this.handleURL(TagKeys.news), {params}).toPromise();
   }
   /**
    * Updates data
@@ -31,16 +32,16 @@ export class NewsService implements ApiService {
    * @returns data
    */
   updateData(data: News[]): Promise<any> {
-    if (data.length > 0)
-      return this.http.post<News>(this.handleURL("news"), data).toPromise();
-    else return this.http.put<News>(this.handleURL("news"), data).toPromise();
+    if (data.length > 1)
+      return this.http.post<News>(this.handleURL(TagKeys.news), data).toPromise();
+    else return this.http.put<News>(this.handleURL(TagKeys.news, data[0]._id), data).toPromise();
   }
   /**
-   * Handles url
+   * Handles url to concat multiple parameters
    * @param param
    * @returns url
    */
-  handleURL(...param: string[]): string {
+  handleURL(...param: any[]): string {
     return this.API_URL.concat(param?.join("/"));
   }
 }

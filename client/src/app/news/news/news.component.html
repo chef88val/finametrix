@@ -1,56 +1,18 @@
-<!-- <h1 *ngIf="statusService" style="color: green;">{{statusServiceCode.code}}: {{statusServiceCode.value}}</h1>
-<h2 *ngIf="!statusService" style="color: red;">{{statusServiceCode.code}}: {{statusServiceCode.value}}</h2>
- -->
 
  <div class="container text-center">
+   <h1>{{'news.feed' | translate}}</h1>
     <div class="row">
         <div class="col">
-            <div class="d-inline-block me-1">Archived</div>
+            <div class="d-inline-block me-1">{{'news.archived' | translate}}</div>
             <div class="form-check form-switch d-inline-block">
                 <input type="checkbox" class="form-check-input" (click)="switchInfo()" 
                 id="site_state" style="cursor: pointer;" [(ngModel)]="dataType.archived">
-                <label for="site_state" class="form-check-label">Current</label>
+                <label for="site_state" class="form-check-label">{{'news.current' | translate}}</label>
                 </div>
         </div>
     </div>
- <app-table [tableHeaders]="headers" [tableData]="newsList"></app-table>
-<!--
-<table class="table" *ngIf="!statusService || newsList.length < 1">
-    <thead>
-      <tr>
-        <th scope="col" (click)="sortTable('index')">#</th>
-        <th scope="col" (click)="sortTable('title')">Title</th>
-        <th scope="col" (click)="sortTable('description')">Description</th>
-        <th scope="col" (click)="sortTable('content')">Content</th>
-        <th scope="col" (click)="sortTable('author')">Author</th>
-        <th scope="col" (click)="sortTable('archiveDate')">Archived Date</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td colspan="6" class="table-active text-center">No data</td>
-        </tr>
-    </tbody>
-</table>
-<table class="table" *ngIf="statusService && newsList.length > 0">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Title</th>
-        <th scope="col">Description</th>
-        <th scope="col">Content</th>
-        <th scope="col">Author</th>
-        <th scope="col">Archived Date</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let item of newsList; let i=index">
-            <th>{{i+1}}</th>
-            <td>{{item.title}}</td>
-            <td>{{item.description}}</td>
-            <td>{{item.content}}</td>
-            <td>{{item.author}}</td>
-            <td>{{item.archiveDate}}</td>
-        </tr>
-    </tbody>
-  </table>-->
+<h1>{{'news.current' | translate}}<span *ngIf="tableConfig.archived"> {{'news.archived' | lowercase | translate }}</span></h1>
+
+ <app-table [config]="tableConfig" [tableHeaders]="headers" [tableData]="newsList" [actions]="actionsCell" (actionEvent)="handleActionEvent($event)"></app-table>
+
+ 

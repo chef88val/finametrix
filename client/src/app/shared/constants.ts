@@ -10,9 +10,9 @@ export const ServiceStatusCode: ServiceCode = {
   404: " Servicio no disponible",
 };
 
+export type SortDirection = "asc" | "desc" | "";
 
 export const URL: string = 'http://localhost:3000/api/';
-
 
 export interface TableHeaders {
 index: string;
@@ -20,16 +20,18 @@ title: string;
 description: string;
 content: string;
 author: string;
-archiveDate: string;
+archived: string;
+actions: void;
 }
 export interface TableHeader {
   tag: keyof TableHeaders;
   text: string;
+  visible: boolean;
 }
 export interface ApiService {
     API_URL: string;
     status(): Promise<boolean>;
-    getData(): Promise<News>;
+    getData(params:any): Promise<News>;
     updateData(data: News[]): Promise<any>;
     handleURL(...param: string[]): string;
 }

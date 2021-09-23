@@ -1,32 +1,67 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 import { News } from "src/app/news/news.interface";
-import { TableHeader } from "../constants";
+import { TagKeys } from "src/app/news/shared/constants";
+import { SortDirection, TableHeader } from "../constants";
 
 export interface SortEvent {
   column: string;
   direction: SortDirection;
 }
-export type SortDirection = "asc" | "desc" | "";
 
 @Component({
   selector: "app-table",
   templateUrl: "./table.component.html",
   styleUrls: ["./table.component.scss"],
 })
-export class TableComponent implements OnInit {
+export class TableComponent{
   @Input() tableHeaders!: TableHeader[];
   @Input() tableData!: News[];
+  @Input() actions?: any;
+  @Input() config?: any;
   currentSortValues: { [x: string]: SortDirection } = {};
-  constructor() {}
+  @Output() actionEvent = new EventEmitter<any>();
+  
 
-  ngOnInit(): void {}
-
+  /**
+   * Compare  of table component
+   */
   compare = (v1: any, v2: any): any => (v1 < v2 ? -1 : v1 > v2 ? 1 : 0);
+  /**
+   * Actions events
+   * @param action
+   * @param index
+   */
+  actionEvents(action: string, index: number) {
+    switch (action) {
+      case TagKeys.archived:
+        this.archive(action, this.tableData[index]);
+        break;
 
+      default:
+        break;
+    }
+  }
+  /**
+   * Archives table component
+   * @param action
+   * @param item
+   */
+  archive(action: string, item: News) {
+    /*item.archived = this.config[action];
+    item.archiveDate = new Date();*/
+    this.actionEvent.emit({ action, item });
+    /*this.tableData = this.tableData.filter(
+      (news: any) => news[action] != this.config[action]
+    );*/
+  }
+  /**
+   * Orders by
+   * @param column
+   */
   orderBy(column: string) {
     let item = this.currentSortValues[column];
     if (column in this.currentSortValues) {
-      if (this.currentSortValues[column] === "desc") {
+      if (this.currentSortValues[column] === "desc" ) {
         this.currentSortValues[column] = "asc";
       } else this.currentSortValues[column] = "desc";
     } else {
@@ -39,3 +74,5 @@ export class TableComponent implements OnInit {
     });
   }
 }
+
+
