@@ -10,6 +10,7 @@
     "feed": "Listado de noticias",
     "archived": "Archivadas",
     "btn-archived": "Archivar/ Guardar",
+    "btn-generateData": "Crear datos aleatorios",
     "current": "Noticias",
     "headers":{
       "index": "#",

@@ -11,6 +11,7 @@
       "feed": "News table",
       "archived": "Archived",
       "btn-archived": "Archive/ Save",
+      "btn-generateData": "Create random data",
       "current": "News",
       "headers":{
         "index": "#",

@@ -1,7 +1,14 @@
-import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
-import { News } from "src/app/news/news.interface";
-import { TagKeys } from "src/app/news/shared/constants";
-import { SortDirection, TableHeader } from "../constants";
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  HostListener,
+} from '@angular/core';
+import { News } from 'src/app/news/news.interface';
+import { TagKeys } from 'src/app/news/shared/constants';
+import { SortDirection, TableHeader } from '../constants';
 
 export interface SortEvent {
   column: string;
@@ -9,18 +16,17 @@ export interface SortEvent {
 }
 
 @Component({
-  selector: "app-table",
-  templateUrl: "./table.component.html",
-  styleUrls: ["./table.component.scss"],
+  selector: 'app-table',
+  templateUrl: './table.component.html',
+  styleUrls: ['./table.component.scss'],
 })
-export class TableComponent{
+export class TableComponent {
   @Input() tableHeaders!: TableHeader[];
   @Input() tableData!: News[];
   @Input() actions?: any;
   @Input() config?: any;
   currentSortValues: { [x: string]: SortDirection } = {};
   @Output() actionEvent = new EventEmitter<any>();
-  
 
   /**
    * Compare  of table component
@@ -59,20 +65,18 @@ export class TableComponent{
    * @param column
    */
   orderBy(column: string) {
-    let item = this.currentSortValues[column];
+    let item: SortDirection = this.currentSortValues[column];
     if (column in this.currentSortValues) {
-      if (this.currentSortValues[column] === "desc" ) {
-        this.currentSortValues[column] = "asc";
-      } else this.currentSortValues[column] = "desc";
+      if (item === 'desc') {
+        item = 'asc';
+      } else item = 'desc';
     } else {
-      this.currentSortValues[column] = "asc";
+      item = 'asc';
     }
-    let direction = this.currentSortValues[column];
     this.tableData = [...this.tableData].sort((a: any, b: any) => {
       const res = this.compare(a[column], b[column]);
-      return direction === "asc" ? res : -res;
+      return item === 'asc' ? res : -res;
     });
   }
+
 }
-
-
