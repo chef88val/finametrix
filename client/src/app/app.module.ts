@@ -7,6 +7,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InternationalizationModule } from './internationalization/internationalization.module';
+import { NewsModule } from './news/news.module';
+import { ConfigService } from './services/config.service';
+import { HomeComponent } from './home/home.component';
 
 /**
  * The http loader factory
@@ -14,27 +17,25 @@ import { InternationalizationModule } from './internationalization/international
  * @returns {TranslateHttpLoader}
  * @constructor
  */
- export function HttpLoaderFactory(http: HttpClient) {
+export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/locales/', '.json');
 }
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NewsModule,
     InternationalizationModule.forRoot({ locale_id: 'es-ES' }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
-
+        deps: [HttpClient],
+      },
+    }),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ConfigService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,7 +1,31 @@
 {
-    "banner": {
-      "hello" : "Hola",
-      "world": "world",
-      "change_lang_label": "MErienda"
+  "banner": {
+    "title": "Hola Allfunds Digital"
+  },
+  "news": {
+    "news": "Noticias",
+    "description0": "Desde aquí se puede ver un listado de noticias propias",
+    "description1": "Desde aquí se puede ver mas noticias propias",
+    "description2": "Desde aquí se puede ver desde GitHub",
+    "feed": "Listado de noticias",
+    "archived": "Archivadas",
+    "btn-archived": "Archivar/ Guardar",
+    "btn-generateData": "Crear datos aleatorios",
+    "current": "Noticias",
+    "headers":{
+      "index": "#",
+      "title": "Titulo",
+      "description":  "Descripcion",
+      "content":  "Contenido",
+      "author":  "Autor/ Medio" ,
+      "archived": "Archivado el",
+      "actions": "Acciones"
+    }
+  },
+  "table": {
+    "no_data": "No hay noticias que mostrar",
+    "order": {
+      "title": "La tabla se ordena según: "
     }
   }
+}

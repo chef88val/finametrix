@@ -25,7 +25,7 @@ export class LocalizationService {
         'LocalizationService is already provided by the root module'
       );
     }
-    this._localeId = this.config.locale_id;
+    this._localeId = this.config.localeId;
   }
 
   /**

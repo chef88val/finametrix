@@ -1,8 +1,33 @@
 
 {
     "banner": {
-      "hello" : "Hello",
-      "world": "world",
-      "change_lang_label": "Change The d From Below Drop Down"
+      "title": "Welcome Allfunds Digital"
+    },
+    "news":{
+      "news": "News",
+      "description1": "Own news you can see",
+      "description2": "More news you can see",
+      "description3": "News from news you can see",
+      "feed": "News table",
+      "archived": "Archived",
+      "btn-archived": "Archive/ Save",
+      "btn-generateData": "Create random data",
+      "current": "News",
+      "headers":{
+        "index": "#",
+        "title": "Title",
+        "description":  "Description",
+        "content":  "Content",
+        "author":  "Author/ Source" ,
+        "archived": "Archived Date",
+        "actions": "Actions"
+      }
+    },
+    "table":{
+      "no_data": "No available news",
+      "order":{
+        "title": "Table is ordered by: "
+      }
+
     }
   }

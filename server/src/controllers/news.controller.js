@@ -1,87 +1,85 @@
 const News = require("../schemas/news.schema");
 const newsCtrl = {};
 
+const objectID = require('mongoose').Types.ObjectId;
 const errors = {
   args: {
-    no_exist: 'No existe',
-    missing: 'No aparece'
+    no_exist: "No existe",
+    missing: "No aparece",
   },
   item: {
-    no_exist: 'No existe',
-    missing: 'No aparece'
+    no_exist: "No existe",
+    missing: "No aparece",
   },
-  no_exist: 'No existe',
-  missing: 'No aparece',
-  no_results: 'No hay resultados'
-}
-
-const status = {
-  saved: 'saved',
-  updated: 'updated',
-  deleted: 'deleted',
-}
-
+  no_exist: "No existe",
+  missing: "No aparece",
+  no_results: "No hay resultados",
+};
 
 newsCtrl.getNews = async (req, res, next) => {
-  if (!req.body.args) {
-    res.status(500).send(errors.args.no_exist);
-    return next()
-  }
-
-  const news = await News.find(req.body.args);
+  const news = await News.find(req.query);
 
   if (!news) {
     res.status(500).send(errors.no_results);
-    return next()
+    return next();
   }
   res.json(news);
 };
 
 newsCtrl.createNews = async (req, res) => {
-  if(!req.body.item){
+  if (!req.body) {
     res.status(500).send(errors.item.no_exist);
-    return next()
+    return next();
   }
-  const news = new News(req.body.item);
 
-  if (!news) {
-    res.status(500).send(errors.no_results);
-    return next()
+  let insertNews = [];
+  for (const news of req.body) {
+    insertNews.push(new News(news));
+
   }
-  await news.save();
-  res.json({ status: `New ${status.saved}` });
+
+  if (!insertNews) {
+    res.status(500).send(errors.no_results);
+    return next();
+  }
+  try {
+    
+    insertNews.forEach((item)=> item.save())
+    //await insertNews.save();
+    res.status(200).send({ status: 200 });
+  } catch (error) {
+    res.status(500).send(error);
+
+  }
 };
 
 newsCtrl.editNew = async (req, res) => {
-
-  if (!req.params || req.body.item) {
+  if (!req.params || !req.body[0]) {
     res.status(500).send(errors.args.no_exist);
-    return next()
-
+    return next();
   }
   const { id } = req.params;
 
-  if (!id) {
+  if(!objectID.isValid(id)){
     res.status(500).send(errors.missing);
-    return next()
+    return next();
   }
-  const news = req.body.item
+  const news = req.body[0];
   if (!news) {
     res.status(500).send(errors.no_results);
-    return next()
+    return next();
   }
   await News.findByIdAndUpdate(id, { $set: news });
-  res.json({ status: `New ${status.updated}` });
+  res.status(200).send({ status: 200 });
 };
 
 newsCtrl.deleteNew = async (req, res) => {
-
   if (!req.params.id) {
     res.status(500).send(errors.missing);
-    return next()
+    return next();
   }
   await News.findByIdAndRemove(req.params.id);
-  res.json({ status: `New ${status.deleted}` });
+  res.status(200).send({ status: 200 });
 };
 
 module.exports = newsCtrl;

@@ -1,1 +1,45 @@
-<p>news works!</p>
+<div
+  class="container text-center"
+  scrollTracker
+  (someEvent)="handleActionEvent($event)"
+>
+  <h1>{{ "news.feed" | translate }}</h1>
+  <div class="row">
+    <div class="col">
+      <div class="d-inline-block me-1">{{ "news.archived" | translate }}</div>
+      <div class="form-check form-switch d-inline-block">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          (click)="switchInfo()"
+          id="site_state"
+          style="cursor: pointer"
+          [(ngModel)]="dataType.archived"
+        />
+        <label for="site_state" class="form-check-label">{{
+          "news.current" | translate
+        }}</label>
+      </div>
+    </div>
+  </div>
+  <h1>
+    {{ "news.current" | translate
+    }}<span *ngIf="tableConfig.archived">
+      {{ "news.archived" | lowercase | translate }}</span
+    >
+  </h1>
+  <div class="row" *ngIf="showLoadData">
+    <div class="col-sm-12 text-center">
+      <button class="btn btn-danger" (click)="generateRandomData()">
+        {{ "news.btn-generateData" | translate }}
+      </button>
+    </div>
+  </div>
+  <app-table
+    [config]="tableConfig"
+    [tableHeaders]="headers"
+    [tableData]="newsList"
+    [actions]="actionsCell"
+    (actionEvent)="handleActionEvent($event)"
+  ></app-table>
+</div>
