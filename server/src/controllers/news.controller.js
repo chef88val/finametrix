@@ -31,14 +31,26 @@ newsCtrl.createNews = async (req, res) => {
     res.status(500).send(errors.item.no_exist);
     return next();
   }
-  const news = new News(req.body[0]);
 
-  if (!news) {
+  let insertNews = [];
+  for (const news of req.body) {
+    insertNews.push(new News(news));
+
+  }
+
+  if (!insertNews) {
     res.status(500).send(errors.no_results);
     return next();
   }
-  await news.save();
-  res.status(200).send({ status: 200 });
+  try {
+    
+    insertNews.forEach((item)=> item.save())
+    //await insertNews.save();
+    res.status(200).send({ status: 200 });
+  } catch (error) {
+    res.status(500).send(error);
+
+  }
 };
 
 newsCtrl.editNew = async (req, res) => {
