@@ -8,6 +8,7 @@ interface ServiceCode {
 export const ServiceStatusCode: ServiceCode = {
   200: " Servicio disponible",
   404: " Servicio no disponible",
+  500: " Petiticion incorrecta",
 };
 
 export type SortDirection = "asc" | "desc" | "";
